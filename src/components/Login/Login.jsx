@@ -1,12 +1,25 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
+    //useContext use for get signInUser function
+    const {signInUser} = useContext(AuthContext);
 
     const handleLoginBtn = e =>{
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email,password);
+
+        // signIn in firebase
+        signInUser(email,password)
+        .then(result =>{
+            console.log(result.user);
+        })
+        .catch(error =>{
+            console.error(error);
+        })
     }
 
     return (

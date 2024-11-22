@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
+    const {createUser} = useContext(AuthContext);
+    // console.log(createUser);
 
     const handleLoginBtn = e =>{
         e.preventDefault();
@@ -8,6 +12,15 @@ const Register = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(name,email,password);
+
+        //create user in firebase
+        createUser(email,password)
+        .then(result =>{
+            console.log(result.user)
+        })
+        .catch(error  =>{
+            console.error(error);
+        })
     }
 
     return (
